@@ -1,0 +1,12 @@
+{
+  "name": "streamdeck-macros",
+  "version": "1.0.0",
+  "description": "Macros for the Elgato Streamdeck",
+  "main": "index.js",
+  "repository": "https://gitlab.com/timmo/streamdeck-macros",
+  "author": "Timmo <contact@timmo.xyz>",
+  "license": "MIT",
+  "dependencies": {
+    "elgato-stream-deck": "^2.1.1"
+  }
+}
