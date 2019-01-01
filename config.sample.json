@@ -1,0 +1,6 @@
+{
+    "hass": {
+        "url": "https://hassio.local:8123",
+        "token": ""
+    }
+}
