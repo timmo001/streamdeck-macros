@@ -16,7 +16,6 @@ let path = require('path'),
 
 getResource = filePath => path.resolve(__dirname, `resources/${filePath}`);
 
-
 setTempImageAndDelete = (key, filePath) => {
   streamDeck.fillImageFromFile(key, filePath);
   setTimeout(() => cp.exec(`rm ${filePath}`), 2000);
