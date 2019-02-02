@@ -214,9 +214,7 @@ const streamDeck = new StreamDeck();
 
 streamDeck.setBrightness(BRIGHTNESS);
 
-streamDeck.on('down', keyIndex => {
-  console.log('key %d down', keyIndex);
-});
+streamDeck.on('down', keyIndex => console.log('key %d down', keyIndex));
 
 streamDeck.on('up', keyIndex => {
   console.log('key %d up', keyIndex);
@@ -224,8 +222,6 @@ streamDeck.on('up', keyIndex => {
 });
 
 // Fired whenever an error is detected by the `node-hid` library.
-streamDeck.on('error', error => {
-  console.error(error);
-});
+streamDeck.on('error', error => console.error(error));
 
 createPage(PAGE_MAIN);
