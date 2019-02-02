@@ -8,6 +8,7 @@ let path = require('path'),
   moment = require('moment'),
   PAGE_MAIN = 'main',
   PAGE_HA = 'home_assistant',
+  PAGE_HA_HEATING = 'home_assistant_heating',
   PAGE_SETTINGS = 'settings',
   BRIGHTNESS = 50,
   lastPage = PAGE_MAIN,
@@ -40,10 +41,10 @@ updateBrightness = () => {
 };
 
 createPage = page => {
-  lastPage = currPage;
   for (let i = 0; i <= 10; i++)streamDeck.clearKey(i);
   switch (page) {
     case PAGE_MAIN:
+      lastPage = PAGE_MAIN;
       // Row 1
       streamDeck.fillImageFromFile(4, getResource('images/ha.png'));
       streamDeck.fillImageFromFile(3, getResource('images/discord.png'));
@@ -77,14 +78,31 @@ createPage = page => {
       streamDeck.fillImageFromFile(10, getResource('images/settings.png'));
       break;
     case PAGE_HA:
+      lastPage = PAGE_MAIN;
       // Row 1
       streamDeck.fillImageFromFile(4, getResource('images/back.png'));
-      streamDeck.fillImageFromFile(3, getResource('images/ha-reset.png'));
-      streamDeck.fillImageFromFile(2, getResource('images/ha-night.png'));
-      // streamDeck.fillImageFromFile(1, getResource('images/ha.png'));
-      // streamDeck.fillImageFromFile(0, getResource('images/ha.png'));
+      streamDeck.fillImageFromFile(3, getResource('images/ha/reset.png'));
+      streamDeck.fillImageFromFile(2, getResource('images/ha/night.png'));
+      streamDeck.fillImageFromFile(1, getResource('images/ha/heating-boost.png'));
+      // streamDeck.fillImageFromFile(0, getResource('images/ha/source-tv.png'));
+      // Row 2
+      streamDeck.fillImageFromFile(9, getResource('images/ha/vol-down.png'));
+      streamDeck.fillImageFromFile(8, getResource('images/ha/skip-previous.png'));
+      streamDeck.fillImageFromFile(7, getResource('images/ha/play.png'));
+      streamDeck.fillImageFromFile(6, getResource('images/ha/skip-next.png'));
+      streamDeck.fillImageFromFile(5, getResource('images/ha/vol-up.png'));
+      // Row 3
+      streamDeck.fillImageFromFile(10, getResource(`images/ha/${ha.source[ha.sourceId]}.png`));
+      break;
+    case PAGE_HA_HEATING:
+      lastPage = PAGE_HA;
+      // Row 1
+      streamDeck.fillImageFromFile(4, getResource('images/back.png'));
+
+      streamDeck.fillImageFromFile(0, getResource('images/ha/heating-boost.png'));
       break;
     case PAGE_SETTINGS:
+      lastPage = PAGE_MAIN;
       // Row 1
       streamDeck.fillImageFromFile(4, getResource('images/back.png'));
       streamDeck.fillImageFromFile(3, getResource('images/brightness-down.png'));
@@ -129,49 +147,51 @@ handleKeyPressed = key => {
       switch (currPage) {
         case PAGE_MAIN:
           return opn('https://github.com');
+        case PAGE_HA:
+          return createPage(PAGE_HA_HEATING);
       }
     case 0:
       switch (currPage) {
         case PAGE_MAIN:
           return opn('https://gitlab.com');
+        case PAGE_HA_HEATING:
+          return ha.call('scene', 'turn_on', 'scene.heating_boost');
       }
     case 9:
       switch (currPage) {
         case PAGE_MAIN:
           return ks.sendKey('');
+        case PAGE_HA:
+          return ha.call('media_player', 'volume_down', ha.getSourceName());
       }
     case 8:
       switch (currPage) {
         case PAGE_MAIN:
           return ks.sendKey('');
+        case PAGE_HA:
+          return ha.call('media_player', 'media_previous_track', ha.getSourceName());
       }
     case 7:
       switch (currPage) {
         case PAGE_MAIN:
           return ks.sendKey('');
+        case PAGE_HA:
+          return ha.call('media_player', 'media_play_pause', ha.getSourceName());
       }
     case 6:
       switch (currPage) {
         case PAGE_MAIN:
           return ks.sendKey('');
+        case PAGE_HA:
+          return ha.call('media_player', 'media_next_track', ha.getSourceName());
       }
     case 5:
       switch (currPage) {
         case PAGE_MAIN:
           return ks.sendKey('');
+        case PAGE_HA:
+          return ha.call('media_player', 'volume_up', ha.getSourceName());
       }
-    case 4:
-      return;
-    case 9:
-      return;
-    case 8:
-      return;
-    case 7:
-      return;
-    case 6:
-      return;
-    case 5:
-      return;
     case 14:
       return;
     case 13:
@@ -184,6 +204,8 @@ handleKeyPressed = key => {
       switch (currPage) {
         case PAGE_MAIN:
           return createPage(PAGE_SETTINGS);
+        case PAGE_HA:
+          return streamDeck.fillImageFromFile(10, getResource(`images/ha/${ha.source[ha.nextSource()]}.png`));
       }
   }
 };
