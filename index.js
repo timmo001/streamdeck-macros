@@ -47,16 +47,16 @@ createPage = page => {
       lastPage = PAGE_MAIN;
       // Row 1
       streamDeck.fillImageFromFile(4, getResource('images/ha.png'));
-      streamDeck.fillImageFromFile(3, getResource('images/discord.png'));
-      streamDeck.fillImageFromFile(2, getResource('images/spotify.png'));
-      streamDeck.fillImageFromFile(1, getResource('images/github.png'));
-      streamDeck.fillImageFromFile(0, getResource('images/gitlab.png'));
+      // streamDeck.fillImageFromFile(3, getResource('images/discord.png'));
+      // streamDeck.fillImageFromFile(2, getResource('images/spotify.png'));
+      // streamDeck.fillImageFromFile(1, getResource('images/github.png'));
+      // streamDeck.fillImageFromFile(0, getResource('images/gitlab.png'));
       // Row 2
-      streamDeck.fillImageFromFile(9, getResource('images/vol-down.png'));
-      streamDeck.fillImageFromFile(8, getResource('images/skip-previous.png'));
-      streamDeck.fillImageFromFile(7, getResource('images/play.png'));
-      streamDeck.fillImageFromFile(6, getResource('images/skip-next.png'));
-      streamDeck.fillImageFromFile(5, getResource('images/vol-up.png'));
+      // streamDeck.fillImageFromFile(9, getResource('images/vol-down.png'));
+      // streamDeck.fillImageFromFile(8, getResource('images/skip-previous.png'));
+      // streamDeck.fillImageFromFile(7, getResource('images/play.png'));
+      // streamDeck.fillImageFromFile(6, getResource('images/skip-next.png'));
+      // streamDeck.fillImageFromFile(5, getResource('images/vol-up.png'));
       // Row 3
       setInterval(() => {
         let blank = getResource('images/blank.png'),
@@ -125,8 +125,8 @@ handleKeyPressed = key => {
       }
     case 3:
       switch (currPage) {
-        case PAGE_MAIN:
-          return cp.exec('discord');
+        // case PAGE_MAIN:
+        //   return cp.exec('discord');
         case PAGE_HA:
           return ha.call('scene', 'turn_on', 'scene.reset_lights');
         case PAGE_SETTINGS:
@@ -135,8 +135,8 @@ handleKeyPressed = key => {
       }
     case 2:
       switch (currPage) {
-        case PAGE_MAIN:
-          return cp.exec('spotify');
+        // case PAGE_MAIN:
+        //   return cp.exec('spotify');
         case PAGE_HA:
           return ha.call('scene', 'turn_on', 'scene.night_mode');
         case PAGE_SETTINGS:
@@ -145,50 +145,50 @@ handleKeyPressed = key => {
       }
     case 1:
       switch (currPage) {
-        case PAGE_MAIN:
-          return opn('https://github.com');
+        // case PAGE_MAIN:
+        //   return opn('https://github.com');
         case PAGE_HA:
           return createPage(PAGE_HA_HEATING);
       }
     case 0:
       switch (currPage) {
-        case PAGE_MAIN:
-          return opn('https://gitlab.com');
+        // case PAGE_MAIN:
+        //   return opn('https://gitlab.com');
         case PAGE_HA_HEATING:
           return ha.call('scene', 'turn_on', 'scene.heating_boost');
       }
     case 9:
       switch (currPage) {
-        case PAGE_MAIN:
-          return ks.sendKey('');
+        // case PAGE_MAIN:
+        //   return ks.sendKey('');
         case PAGE_HA:
           return ha.call('media_player', 'volume_down', ha.getSourceName());
       }
     case 8:
       switch (currPage) {
-        case PAGE_MAIN:
-          return ks.sendKey('');
+        // case PAGE_MAIN:
+        //   return ks.sendKey('');
         case PAGE_HA:
           return ha.call('media_player', 'media_previous_track', ha.getSourceName());
       }
     case 7:
       switch (currPage) {
-        case PAGE_MAIN:
-          return ks.sendKey('');
+        // case PAGE_MAIN:
+        //   return ks.sendKey('');
         case PAGE_HA:
           return ha.call('media_player', 'media_play_pause', ha.getSourceName());
       }
     case 6:
       switch (currPage) {
-        case PAGE_MAIN:
-          return ks.sendKey('');
+        // case PAGE_MAIN:
+        //   return ks.sendKey('');
         case PAGE_HA:
           return ha.call('media_player', 'media_next_track', ha.getSourceName());
       }
     case 5:
       switch (currPage) {
-        case PAGE_MAIN:
-          return ks.sendKey('');
+        // case PAGE_MAIN:
+        //   return ks.sendKey('');
         case PAGE_HA:
           return ha.call('media_player', 'volume_up', ha.getSourceName());
       }
