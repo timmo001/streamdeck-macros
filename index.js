@@ -12,9 +12,14 @@ let path = require('path'),
   PAGE_SETTINGS = 'settings',
   BRIGHTNESS = 50,
   lastPage = PAGE_MAIN,
-  currPage = PAGE_MAIN,
+  currPage = PAGE_HA,
   timeouts = [],
   clockInterval;
+
+const round = (value, precision) => {
+  let multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+};
 
 getResource = filePath => path.resolve(__dirname, `resources/${filePath}`);
 
@@ -182,12 +187,13 @@ handleKeyPressed = key => {
         case PAGE_HA:
           return createPage(PAGE_HA_HEATING);
         case PAGE_HA_HEATING:
-          return ha.getData('climate.central_heating', data =>
+          return ha.getData('climate.central_heating', data => {
             ha.call('climate', 'set_temperature', {
               entity_id: 'climate.central_heating',
-              temperature: data.attributes.temperature + 0.1
-            })
-          );
+              temperature: round(data.attributes.temperature + 0.1, 1)
+            });
+            setTimeout(() => createPage(currPage), 1000);
+          });
       }
     case 0:
       switch (currPage) {
@@ -242,12 +248,13 @@ handleKeyPressed = key => {
     case 11:
       switch (currPage) {
         case PAGE_HA_HEATING:
-          return ha.getData('climate.central_heating', data =>
+          return ha.getData('climate.central_heating', data => {
             ha.call('climate', 'set_temperature', {
               entity_id: 'climate.central_heating',
-              temperature: data.attributes.temperature - 0.1
-            })
-          );
+              temperature: round(data.attributes.temperature - 0.1, 1)
+            });
+            setTimeout(() => createPage(currPage), 1000);
+          });
       }
       return;
     case 10:
@@ -274,4 +281,4 @@ streamDeck.on('up', keyIndex => {
 // Fired whenever an error is detected by the `node-hid` library.
 streamDeck.on('error', error => console.error(error));
 
-createPage(PAGE_MAIN);
+createPage(currPage);
