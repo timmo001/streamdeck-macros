@@ -5,4 +5,4 @@ services:
   streamdeck-macros:
     image: timmo001/streamdeck-macros:edge
     volumes:
-      - ~/streamdeck-macros-config.json:/data/config.json
+      - ./config.json:/data/config.json

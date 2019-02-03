@@ -12,7 +12,7 @@ ENV \
     TERM="xterm"
 
 # Copy app
-COPY ../ /opt/streamdeck-macros
+COPY . /opt/streamdeck-macros
 
 # Copy root filesystem
 COPY rootfs /
