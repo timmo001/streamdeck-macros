@@ -1,0 +1,26 @@
+---
+include: https://raw.githubusercontent.com/timmo001/organization/master/gitlab-ci/js.yml
+
+variables:
+  GITHUB_REPO: "timmo001/streamdeck-macros"
+  SLUG: "streamdeck-macros"
+  TARGET: "docker"
+
+  AARCH64: "true"
+  AMD64: "true"
+  ARMHF: "true"
+  ARMV7: "false"
+  I386: "true"
+
+  LEGACY_TAGS: "false"
+
+  PREFLIGHT_HADOLINT: "true"
+  PREFLIGHT_JSONLINT: "true"
+  PREFLIGHT_MARKDOWNLINT: "true"
+  PREFLIGHT_SHELLCHECK: "true"
+  PREFLIGHT_YAMLLINT: "true"
+  PREFLIGHT_ESLINT: "true"
+  PREFLIGHT_STYLELINT: "false"
+  TEST: "false"
+  DEPLOY_DOCKER: "false"
+  PAGES_MKDOCS: "false"
