@@ -21,14 +21,14 @@ const round = (value, precision) => {
   return Math.round(value * multiplier) / multiplier;
 };
 
-getResource = filePath => path.resolve(__dirname, `resources/${filePath}`);
+const getResource = filePath => path.resolve(__dirname, `resources/${filePath}`);
 
-setTempImageAndDelete = (key, filePath) => {
+const setTempImageAndDelete = (key, filePath) => {
   streamDeck.fillImageFromFile(key, filePath);
   setTimeout(() => cp.exec(`rm ${filePath}`), 2000);
 };
 
-updateBrightness = () => {
+const updateBrightness = () => {
   if (BRIGHTNESS > 100) BRIGHTNESS = 100;
   if (BRIGHTNESS < 0) BRIGHTNESS = 0;
   streamDeck.setBrightness(BRIGHTNESS);
@@ -66,7 +66,7 @@ const runClock = () => {
   }, 1000);
 };
 
-createPage = page => {
+const createPage = page => {
   let blank = getResource('images/blank.png'),
     back = getResource('images/back.png');
   clearInterval(clockInterval);
@@ -149,121 +149,158 @@ createPage = page => {
   currPage = page;
 };
 
-handleKeyPressed = key => {
+const handleKeyPressed = key => {
   // Clear any timeouts
   timeouts.map(id => clearTimeout(id));
   switch (key) {
     case 4:
       switch (currPage) {
-        case PAGE_MAIN:
-          return createPage(PAGE_HA);
         default:
-          return createPage(lastPage);
+          createPage(lastPage);
+          break;
+        case PAGE_MAIN:
+          createPage(PAGE_HA);
+          break;
       }
     case 3:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
-        //   return cp.exec('discord');
+        //   cp.exec('discord');
         case PAGE_HA:
-          return ha.call('scene', 'turn_on', { entity_id: 'scene.reset_lights' });
+          ha.call('scene', 'turn_on', { entity_id: 'scene.reset_lights' });
         case PAGE_SETTINGS:
           BRIGHTNESS -= 5;
-          return updateBrightness();
+          updateBrightness();
+          break;
       }
+      break;
     case 2:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
         //   return cp.exec('spotify');
         case PAGE_HA:
-          return ha.call('scene', 'turn_on', { entity_id: 'scene.night_mode' });
+          ha.call('scene', 'turn_on', { entity_id: 'scene.night_mode' });
+          break;
         case PAGE_SETTINGS:
           BRIGHTNESS += 5;
-          return updateBrightness();
+          updateBrightness();
+          break;
       }
+      break;
     case 1:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
         //   return opn('https://github.com');
         case PAGE_HA:
-          return createPage(PAGE_HA_HEATING);
+          createPage(PAGE_HA_HEATING);
+          break;
         case PAGE_HA_HEATING:
-          return ha.getData('climate.central_heating', data => {
+          ha.getData('climate.central_heating', data => {
             ha.call('climate', 'set_temperature', {
               entity_id: 'climate.central_heating',
               temperature: round(data.attributes.temperature + 0.1, 1)
             });
             setTimeout(() => createPage(currPage), 1000);
           });
+          break;
       }
+      break;
     case 0:
-      switch (currPage) {
-        // case PAGE_MAIN:
-        //   return opn('https://gitlab.com');
-      }
+      // switch (currPage) {
+      //   case PAGE_MAIN:
+      //     opn('https://gitlab.com');
+      //     break;
+      // }
+      break;
     case 9:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
-        //   return ks.sendKey('');
+        //    ks.sendKey('');
         case PAGE_HA:
-          return ha.call('media_player', 'volume_down', { entity_id: ha.getSourceName() });
+          ha.call('media_player', 'volume_down', { entity_id: ha.getSourceName() });
+          break;
       }
+      break;
     case 8:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
-        //   return ks.sendKey('');
+        //    ks.sendKey('');
         case PAGE_HA:
-          return ha.call('media_player', 'media_previous_track', { entity_id: ha.getSourceName() });
+          ha.call('media_player', 'media_previous_track', { entity_id: ha.getSourceName() });
+          break;
       }
+      break;
     case 7:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
-        //   return ks.sendKey('');
+        //    ks.sendKey('');
         case PAGE_HA:
-          return ha.call('media_player', 'media_play_pause', { entity_id: ha.getSourceName() });
+          ha.call('media_player', 'media_play_pause', { entity_id: ha.getSourceName() });
+          break;
       }
+      break;
     case 6:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
         //   return ks.sendKey('');
         case PAGE_HA:
-          return ha.call('media_player', 'media_next_track', { entity_id: ha.getSourceName() });
+          ha.call('media_player', 'media_next_track', { entity_id: ha.getSourceName() });
+          break;
       }
+      break;
     case 5:
       switch (currPage) {
+        default: break;
         // case PAGE_MAIN:
         //   return ks.sendKey('');
         case PAGE_HA:
-          return ha.call('media_player', 'volume_up', { entity_id: ha.getSourceName() });
+          ha.call('media_player', 'volume_up', { entity_id: ha.getSourceName() });
+          break;
       }
+      break
     case 14:
       switch (currPage) {
+        default: break;
         case PAGE_HA_HEATING:
-          return ha.call('scene', 'turn_on', { entity_id: 'scene.heating_boost' });
+          ha.call('scene', 'turn_on', { entity_id: 'scene.heating_boost' });
+          break;
       }
-      return;
+      break;
     case 13:
-      return;
+      break;
     case 12:
-      return;
+      break;
     case 11:
       switch (currPage) {
         case PAGE_HA_HEATING:
-          return ha.getData('climate.central_heating', data => {
+          ha.getData('climate.central_heating', data => {
             ha.call('climate', 'set_temperature', {
               entity_id: 'climate.central_heating',
               temperature: round(data.attributes.temperature - 0.1, 1)
             });
             setTimeout(() => createPage(currPage), 1000);
           });
+          break;
       }
-      return;
+      break;
     case 10:
       switch (currPage) {
+        default: break;
         case PAGE_MAIN:
-          return createPage(PAGE_SETTINGS);
+          createPage(PAGE_SETTINGS);
+          break;
         case PAGE_HA:
-          return streamDeck.fillImageFromFile(10, getResource(`images/ha/${ha.nextSource()}.png`));
+          streamDeck.fillImageFromFile(10, getResource(`images/ha/${ha.nextSource()}.png`));
+          break;
       }
+      break;
   }
 };
 

@@ -14,11 +14,11 @@ let WebSocket = require('ws'),
   sourceId = -1,
   id;
 
-ws.on('open', open = () => {
+ws.on('open', () => {
   console.log('WS: Opened');
 });
 
-ws.on('message', incoming = data => {
+ws.on('message', data => {
   // console.log('WS: Message received:', data);
   const message = JSON.parse(data);
   if (message.type) {
@@ -59,6 +59,7 @@ ws.on('message', incoming = data => {
           switch (message.event.event_type) {
             default:
               console.log('WS: Unhandled event type message received:', data);
+              break;
             case 'state_changed':
               // console.log('WS: state_changed');
               const stateId = states.findIndex(s =>
