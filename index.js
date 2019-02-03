@@ -46,21 +46,25 @@ const updateBrightness = () => {
 
 const runClock = () => {
   if (clockInterval) clearTimeout(clockInterval);
+  let oldTime = moment();
   clockInterval = setInterval(() => {
     let blank = getResource('images/blank.png'),
       time = moment();
-    image.addText(blank, time.format('HH'), true, filePath =>
-      setTempImageAndDelete(14, filePath)
-    );
-    image.addText(blank, time.format('mm'), true, filePath =>
-      setTempImageAndDelete(13, filePath)
-    );
-    image.addText(blank, time.format('dd'), true, filePath =>
-      setTempImageAndDelete(12, filePath)
-    );
-    image.addText(blank, time.format('DD'), true, filePath =>
-      setTempImageAndDelete(11, filePath)
-    );
+
+    if (time.format('mm') > oldTime.format('mm')) {
+      image.addText(blank, time.format('HH'), true, filePath =>
+        setTempImageAndDelete(14, filePath)
+      );
+      image.addText(blank, time.format('mm'), true, filePath =>
+        setTempImageAndDelete(13, filePath)
+      );
+      image.addText(blank, time.format('dd'), true, filePath =>
+        setTempImageAndDelete(12, filePath)
+      );
+      image.addText(blank, time.format('DD'), true, filePath =>
+        setTempImageAndDelete(11, filePath)
+      );
+    }
   }, 1000);
 };
 
