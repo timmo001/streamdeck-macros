@@ -54,14 +54,12 @@ ws.on('message', data => {
         }
         break;
       case 'event':
-        // console.log('WS: event');
         if (message.event.event_type)
           switch (message.event.event_type) {
             default:
               console.log('WS: Unhandled event type message received:', data);
               break;
             case 'state_changed':
-              // console.log('WS: state_changed');
               const stateId = states.findIndex(s =>
                 s.entity_id === message.event.data.old_state.entity_id);
               states[stateId] = message.event.data.new_state;
@@ -74,7 +72,6 @@ ws.on('message', data => {
         else console.log('WS: Unhandled event message received:', data);
         break;
     }
-    ``
   } else console.log('WS: Unhandled message received:', data);
 });
 

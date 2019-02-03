@@ -162,6 +162,7 @@ const handleKeyPressed = key => {
           createPage(PAGE_HA);
           break;
       }
+      break;
     case 3:
       switch (currPage) {
         default: break;
@@ -169,6 +170,7 @@ const handleKeyPressed = key => {
         //   cp.exec('discord');
         case PAGE_HA:
           ha.call('scene', 'turn_on', { entity_id: 'scene.reset_lights' });
+          break;
         case PAGE_SETTINGS:
           BRIGHTNESS -= 5;
           updateBrightness();
