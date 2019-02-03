@@ -7,13 +7,11 @@ Macros for my Elgato Stream Deck on Linux.
 - [x] Add initial code
 - [x] Integrate Home Assistant via REST API
 - [x] Add brightness control
-- [ ] Finish media controls
+- [x] Finish media controls
 - [ ] Add more Home Assistant buttons
 - [ ] More pages
 - [ ] Live data such as sensors
 - [ ] More controls
-- [ ] Reduce I/O
-- [ ] Cleanup code
 - [ ] Finish docs
 
 ## Setup
