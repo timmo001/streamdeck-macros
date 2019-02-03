@@ -60,7 +60,7 @@ ws.on('message', data => {
               console.log('WS: Unhandled event type message received:', data);
               break;
             case 'state_changed':
-              const stateId = states.findIndex(s =>
+              let stateId = states.findIndex(s =>
                 s.entity_id === message.event.data.old_state.entity_id);
               states[stateId] = message.event.data.new_state;
               if (data && data.length > 0 && data.map) data.map(d => {
