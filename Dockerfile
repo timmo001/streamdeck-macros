@@ -33,8 +33,13 @@ RUN \
     && echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
     \
     && apk add --no-cache --virtual .build-dependencies \
+        build-base=0.5-r1 \
         curl=7.63.0-r0 \
+        fftw-dev=3.3.8-r0 \
         git=2.20.1-r0 \
+        libstdc++=8.2.0-r2 \
+        libusb-dev=1.0.22-r0 \
+        python2=2.7.15-r3 \
         tar=1.31-r0 \
         yarn=1.12.3-r0 \
     \
@@ -45,6 +50,7 @@ RUN \
         ca-certificates=20190108-r0 \
         nodejs-current=11.3.0-r0 \
         tzdata=2018i-r0 \
+        vips-dev@edge=8.7.4-r1 \
     \
     && if [ "${BUILD_ARCH}" = "i386" ]; then S6_ARCH="x86"; else S6_ARCH="${BUILD_ARCH}"; fi \
     \
@@ -53,11 +59,15 @@ RUN \
     \
     && mkdir -p /etc/fix-attrs.d \
     \
+    && yarn global add node-gyp \
+    \
     && cd /opt/streamdeck-macros \
     && yarn install \
     \
+    && yarn global remove node-gyp \
     && yarn cache clean \
     && apk del --purge .build-dependencies \
+    && apk del --purge vips-dev \
     && rm -fr /tmp/*
 
 # Entrypoint & CMD

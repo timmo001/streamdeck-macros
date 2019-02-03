@@ -1,8 +1,6 @@
 let path = require('path'),
   StreamDeck = require('elgato-stream-deck'),
   cp = require('child_process'),
-  // opn = require('opn'),
-  // ks = require('node-key-sender'),
   ha = require('./common/ha'),
   image = require('./common/image'),
   moment = require('moment'),
@@ -76,16 +74,7 @@ const createPage = page => {
       lastPage = PAGE_MAIN;
       // Row 1
       streamDeck.fillImageFromFile(4, getResource('images/ha.png'));
-      // streamDeck.fillImageFromFile(3, getResource('images/discord.png'));
-      // streamDeck.fillImageFromFile(2, getResource('images/spotify.png'));
-      // streamDeck.fillImageFromFile(1, getResource('images/github.png'));
-      // streamDeck.fillImageFromFile(0, getResource('images/gitlab.png'));
       // Row 2
-      // streamDeck.fillImageFromFile(9, getResource('images/vol-down.png'));
-      // streamDeck.fillImageFromFile(8, getResource('images/skip-previous.png'));
-      // streamDeck.fillImageFromFile(7, getResource('images/play.png'));
-      // streamDeck.fillImageFromFile(6, getResource('images/skip-next.png'));
-      // streamDeck.fillImageFromFile(5, getResource('images/vol-up.png'));
       // Row 3
       runClock();
       streamDeck.fillImageFromFile(10, getResource('images/settings.png'));
@@ -194,8 +183,6 @@ const handleKeyPressed = key => {
     case 1:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //   return opn('https://github.com');
         case PAGE_HA:
           createPage(PAGE_HA_HEATING);
           break;
@@ -211,17 +198,10 @@ const handleKeyPressed = key => {
       }
       break;
     case 0:
-      // switch (currPage) {
-      //   case PAGE_MAIN:
-      //     opn('https://gitlab.com');
-      //     break;
-      // }
       break;
     case 9:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //    ks.sendKey('');
         case PAGE_HA:
           ha.call('media_player', 'volume_down', { entity_id: ha.getSourceName() });
           break;
@@ -230,8 +210,6 @@ const handleKeyPressed = key => {
     case 8:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //    ks.sendKey('');
         case PAGE_HA:
           ha.call('media_player', 'media_previous_track', { entity_id: ha.getSourceName() });
           break;
@@ -240,8 +218,6 @@ const handleKeyPressed = key => {
     case 7:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //    ks.sendKey('');
         case PAGE_HA:
           ha.call('media_player', 'media_play_pause', { entity_id: ha.getSourceName() });
           break;
@@ -250,8 +226,6 @@ const handleKeyPressed = key => {
     case 6:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //   return ks.sendKey('');
         case PAGE_HA:
           ha.call('media_player', 'media_next_track', { entity_id: ha.getSourceName() });
           break;
@@ -260,8 +234,6 @@ const handleKeyPressed = key => {
     case 5:
       switch (currPage) {
         default: break;
-        // case PAGE_MAIN:
-        //   return ks.sendKey('');
         case PAGE_HA:
           ha.call('media_player', 'volume_up', { entity_id: ha.getSourceName() });
           break;
