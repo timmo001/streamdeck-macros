@@ -2,18 +2,6 @@
 
 Macros for my Elgato Stream Deck
 
-## TODO
-
-- [x] Add initial code
-- [x] Integrate Home Assistant via REST API
-- [x] Add brightness control
-- [x] Finish media controls
-- [ ] Add more Home Assistant buttons
-- [ ] More pages
-- [ ] Live data such as sensors
-- [ ] More controls
-- [ ] Finish docs
-
 ## Setup
 
 Install `nodejs` and `yarn`.
