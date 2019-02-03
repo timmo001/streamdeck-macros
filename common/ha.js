@@ -21,6 +21,7 @@ ws.on('open', () => {
 ws.on('message', data => {
   // console.log('WS: Message received:', data);
   const message = JSON.parse(data);
+  let stateIndex;
   if (message.type) {
     switch (message.type) {
       default:
@@ -60,7 +61,7 @@ ws.on('message', data => {
               console.log('WS: Unhandled event type message received:', data);
               break;
             case 'state_changed':
-              let stateIndex = states.findIndex(s => {
+              stateIndex = states.findIndex(s => {
                 return s.entity_id === message.event.data.old_state.entity_id
               });
               states[stateIndex] = message.event.data.new_state;
