@@ -1,8 +1,8 @@
 ---
 repository:
-  description: "Macros for my Elgato Stream Deck on Linux"
+  description: "Macros for my Elgato Stream Deck"
   homepage: https://git.timmo.xyz
-  topics:   streamdeck, hid, home-automation, javascript, nodejs
+  topics: streamdeck, hid, home-automation, javascript, nodejs
   private: false
   has_issues: true
   has_projects: false
