@@ -24,3 +24,5 @@ variables:
   TEST: "false"
   DEPLOY_DOCKER: "false"
   PAGES_MKDOCS: "false"
+  SNYK_DOCKER: "false"
+  SNYK_YARN: "false"
