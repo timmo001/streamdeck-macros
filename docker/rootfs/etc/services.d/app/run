@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+# ==============================================================================
+# Starts server to serve the API
+# ==============================================================================
+echo 'Run App..'
+
+# shellcheck disable=SC2164
+cd /opt/api
+
+export CONFIG_PATH=/data/config.json
+
+exec node index.js

@@ -1,5 +1,5 @@
 let WebSocket = require('ws'),
-  config = require('../config.json').hass,
+  config = require(process.env.CONFIG_PATH || '../config.json').hass,
   ws = new WebSocket(config.url),
   states = [],
   data = [],

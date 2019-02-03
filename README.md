@@ -1,6 +1,6 @@
 # Stream Deck Macros
 
-Macros for my Elgato Stream Deck on Linux.
+Macros for my Elgato Stream Deck
 
 ## TODO
 

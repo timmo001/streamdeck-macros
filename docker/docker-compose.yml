@@ -1,0 +1,16 @@
+---
+version: '3'
+
+services:
+  streamdeck-macros:
+    image: timmo001/streamdeck-macros:edge
+    environment:
+      SSL_CERTFILE: fullchain.pem
+      SSL_KEYFILE: privkey.pem
+    ports:
+      - 3234:3234
+      - 8234:8234
+    volumes:
+      - ~/streamdeck-macros-config.json:/data/config.json
+      - ~/ssl/fullchain.pem:/ssl/fullchain.pem
+      - ~/ssl/privkey.pem:/ssl/privkey.pem
