@@ -11,7 +11,7 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
-    "elgato-stream-deck": "^2.1.1",
+    "elgato-stream-deck": "^3.0.0",
     "jimp": "^0.6.0",
     "moment": "^2.23.0",
     "node-key-sender": "^1.0.10",
